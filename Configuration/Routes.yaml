@@ -1,0 +1,9 @@
+-
+  name: 'Api route'
+  uriPattern: api/dev/ui.js
+  httpMethods:
+    - GET
+  defaults:
+    '@package': PerfectIn.Ui
+    '@controller': Api
+    '@action': output

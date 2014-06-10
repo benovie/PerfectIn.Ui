@@ -1,0 +1,15 @@
+{
+    "name": "perfectin/ui",
+    "type": "typo3-flow-framework",
+    "description": "Ui",
+    "license": "LGPL-3.0+",
+    "require": {
+        "typo3/flow": "2.0.*",
+        "mrclay/minify": "*"
+    },
+    "autoload": {
+        "psr-0": {
+            "PerfectIn\\Ui": "Classes"
+        }
+    }
+}

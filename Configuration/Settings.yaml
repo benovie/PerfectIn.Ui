@@ -1,0 +1,13 @@
+TYPO3:
+  Flow:
+    object:
+      excludeClasses:
+        'mrclay.minify': ['.*']
+PerfectIn:
+  Ui:
+    Api:
+      location: %FLOW_PATH_WEB%api/ui.js
+      files:
+        - 'resource://PerfectIn.Ui/Public/Javascript/lib/angular/angular.js'
+        - 'resource://PerfectIn.Ui/Public/Javascript/lib/scripts.js'
+        - 'resource://PerfectIn.Ui/Public/Javascript/lib/perfectIn/perfectIn.ui.js'

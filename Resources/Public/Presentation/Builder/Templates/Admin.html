@@ -1,0 +1,39 @@
+<div ng-controller="Builder.AdminController">
+	<h2>{{currentPresentation}}</h2>
+	<div class="row">
+		<div class="col-md-3">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Presentaties</h3>
+				</div>
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">Nieuw</h3>
+					</div>
+					<div pi-presentation="builder-create"></div>
+				</div>
+				<div pi-presentation="builder-list"></div>
+			</div>
+			<div ng-show="currentPresentation" class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Componenten</h3>
+				</div>
+				<div pi-presentation="builder-components"></div>
+			</div>
+		</div>
+		<div ng-show="currentPresentation" class="col-md-6">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">Editor</h3>
+				</div>
+				<div pi-presentation="builder-editor"></div>
+			</div>
+		</div>
+	</div>
+	<div ng-show="currentPresentation" class="panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">Preview</h3>
+		</div>
+		<div pi-presentation="builder-view"></div>
+	</div>
+</div>

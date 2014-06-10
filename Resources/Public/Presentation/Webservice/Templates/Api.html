@@ -1,0 +1,8 @@
+<div ng-controller="Webservice.RestController">
+  	<div ng-repeat="webservice in webservices">
+  		{{webservice.configuration.method}} : {{webservice.configuration.uri}}
+  		<div ng-repeat="(name,param) in webservice.params">
+  			{{name}} {{param.type}} {{param.defaultValue}}
+  		</div>
+  	</div>
+</div>
