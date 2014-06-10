@@ -1,1 +1,0 @@
-angular.module('perfectIn.ui.presentation.demo', []);
