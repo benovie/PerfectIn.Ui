@@ -1,39 +1,35 @@
 <div ng-controller="Builder.AdminController">
-	<h2>{{currentPresentation}}</h2>
-	<div class="row">
+	
+	<span ng-hide="showCreateNew">
+		<select ng-model="currentPresentation" ng-options="presentation as presentation.name for (identifier, presentation) in presentations"></select>
+		<button ng-hide="showCreateNew" ng-click="showCreateNew = true">+</button>
+	</span>
+	<span ng-if="showCreateNew">
+		<form ng-submit="create(newPresentation)">
+	  		<input placeholder="module" type="module" ng-model="newPresentation.module" />
+	  		<input placeholder="name"  type="name" ng-model="newPresentation.name" />
+	  		<input type="submit" />
+	  		<a ng-click="$parent.showCreateNew = false">cancel</a>
+	  	</form>
+	</span>
+	
+	<div class="row" ng-show="currentPresentation" >
 		<div class="col-md-3">
 			<div class="panel panel-default">
 				<div class="panel-heading">
-					<h3 class="panel-title">Presentaties</h3>
-				</div>
-				<div class="panel panel-default">
-					<div class="panel-heading">
-						<h3 class="panel-title">Nieuw</h3>
-					</div>
-					<div pi-presentation="builder-create"></div>
-				</div>
-				<div pi-presentation="builder-list"></div>
-			</div>
-			<div ng-show="currentPresentation" class="panel panel-default">
-				<div class="panel-heading">
 					<h3 class="panel-title">Componenten</h3>
 				</div>
-				<div pi-presentation="builder-components"></div>
+				<div fb-components></div>
 			</div>
 		</div>
-		<div ng-show="currentPresentation" class="col-md-6">
+		<div class="col-md-6">
+			<button ng-click="save()">save</button>
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">Editor</h3>
 				</div>
-				<div pi-presentation="builder-editor"></div>
+				<div fb-builder="default"></div>
 			</div>
 		</div>
-	</div>
-	<div ng-show="currentPresentation" class="panel panel-default">
-		<div class="panel-heading">
-			<h3 class="panel-title">Preview</h3>
-		</div>
-		<div pi-presentation="builder-view"></div>
 	</div>
 </div>

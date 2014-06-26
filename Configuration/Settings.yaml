@@ -10,4 +10,8 @@ PerfectIn:
       files:
         - 'resource://PerfectIn.Ui/Public/Javascript/lib/angular/angular.js'
         - 'resource://PerfectIn.Ui/Public/Javascript/lib/scripts.js'
+        - 'http://kelp404.github.io/angular-form-builder/dist/angular-form-builder.js'
+        - 'http://kelp404.github.io/angular-form-builder/dist/angular-form-builder-components.js'
+        - 'http://kelp404.github.io/angular-form-builder/submodules/angular-validator/dist/angular-validator.js'
+        - 'http://kelp404.github.io/angular-form-builder/submodules/angular-validator/dist/angular-validator-rules.js'
         - 'resource://PerfectIn.Ui/Public/Javascript/lib/perfectIn/perfectIn.ui.js'

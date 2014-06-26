@@ -1,5 +1,5 @@
-angular.module('perfectIn.ui',[])
-	.service('PerfectIn.PresentationManager', function($http, $q, $timeout) {
+angular.module('perfectIn.ui',['builder','builder.components'])
+	.service('$presentation', function($http, $q, $timeout) {
 	var loaded = {};
 	var loading = {};
 	
@@ -80,7 +80,9 @@ angular.module('perfectIn.ui',[])
 	};
 	
 	function scriptsLoaded(deferred, presentation) {
-		angular.require(presentation.modules);
+		if (presentation.modules) {
+			angular.require(presentation.modules);
+		}
 		$http.get(presentation.template).success(function(html){
 			presentation.html = html;
 			deferred.resolve(presentation);
@@ -101,10 +103,12 @@ angular.module('perfectIn.ui',[])
 		}
 	}
 })
-.directive('piPresentation', ['$compile','PerfectIn.PresentationManager', function($compile, PresentationManager) {
+.directive('piPresentation', ['$compile','$builder','$presentation', function($compile, $builder, $presentation) {
 	return function(scope, element, attrs, controller) {
-		PresentationManager.load(attrs.piPresentation).then(function(presentation) {
+		$presentation.load(attrs.piPresentation).then(function(presentation) {
 			element.html(presentation.html);
+			scope.presentation = presentation;
+			$builder.forms['presentation'] = presentation.configuration;
             $compile(element.contents())(scope);
 		}, function(error) {
 			element.html('UnknownError');

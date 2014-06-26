@@ -1,0 +1,76 @@
+Roles:
+  name: Roles
+  operations:
+    -
+      name: readAll
+      bindings:
+        - 
+          type: rest
+          options:
+            url: webservice/security/role
+            method: GET
+      implementation:
+        class: TYPO3\Flow\Security\Policy\RoleRepository
+        method: findAll 
+    -
+      name: read
+      bindings:
+        - 
+          type: soap
+          options:
+            endpoint: webservice/soap/security/role
+        - 
+          type: rest
+          options:
+            url: webservice/security/role/{identifier}
+            method: GET
+      implementation:
+        class: TYPO3\Flow\Security\Policy\RoleRepository
+        method: findByIdentifier 
+Presentation:
+  name: Presentation
+  operations:
+    -
+      name: readAll
+      bindings:
+        - 
+          type: rest
+          options:
+            url: webservice/ui/presentation
+            method: GET
+      implementation:
+        class: PerfectIn\Ui\Service\PresentationService
+        method: getYamlConfigurations
+    -
+      name: read
+      bindings:
+        - 
+          type: rest
+          options:
+            url: webservice/ui/presentation/{identifier}
+            method: GET
+      implementation:
+        class: PerfectIn\Ui\Service\PresentationService
+        method: getYamlConfiguration
+    -
+      name: create
+      bindings:
+        - 
+          type: rest
+          options:
+            url: webservice/ui/presentation
+            method: POST
+      implementation:
+        class: PerfectIn\Ui\Service\PresentationService
+        method: createPresentation
+    -
+      name: update
+      bindings:
+        - 
+          type: rest
+          options:
+            url: webservice/ui/presentation
+            method: PUT
+      implementation:
+        class: PerfectIn\Ui\Service\PresentationService
+        method: updatePresentation

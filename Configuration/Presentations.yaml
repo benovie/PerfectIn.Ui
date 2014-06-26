@@ -1,48 +1,14 @@
 
-modules:
-  builder:
-    dependencies:
-      - builder.components
-    scripts:
-      - 'http://kelp404.github.io/angular-form-builder/dist/angular-form-builder.js'
-      - 'http://kelp404.github.io/angular-form-builder/submodules/angular-validator/dist/angular-validator.js'
-      - 'http://kelp404.github.io/angular-form-builder/submodules/angular-validator/dist/angular-validator-rules.js'
-  builder.components:
-    scripts:
-      - 'http://kelp404.github.io/angular-form-builder/dist/angular-form-builder-components.js'
 builder-components:
   name: builder-components
   template: /_Resources/Static/Packages/PerfectIn.Ui/Presentation/Builder/Templates/Components.html
-  modules:
-    - builder
-    - builder.components
-  scripts:
-    form.builder: 'http://kelp404.github.io/angular-form-builder/dist/angular-form-builder.js'
-    form.builder.components: 'http://kelp404.github.io/angular-form-builder/dist/angular-form-builder-components.js'
-    validator: 'http://kelp404.github.io/angular-form-builder/submodules/angular-validator/dist/angular-validator.js'
-    validator-rules: 'http://kelp404.github.io/angular-form-builder/submodules/angular-validator/dist/angular-validator-rules.js'
+  scripts: {  }
 builder-view:
   name: builder-view
   template: /_Resources/Static/Packages/PerfectIn.Ui/Presentation/Builder/Templates/View.html
-  modules:
-    - builder
-    - builder.components
-  scripts:
-    form.builder: 'http://kelp404.github.io/angular-form-builder/dist/angular-form-builder.js'
-    form.builder.components: 'http://kelp404.github.io/angular-form-builder/dist/angular-form-builder-components.js'
-    validator: 'http://kelp404.github.io/angular-form-builder/submodules/angular-validator/dist/angular-validator.js'
-    validator-rules: 'http://kelp404.github.io/angular-form-builder/submodules/angular-validator/dist/angular-validator-rules.js'
 builder-editor:
   name: builder-editor
   template: /_Resources/Static/Packages/PerfectIn.Ui/Presentation/Builder/Templates/Editor.html
-  modules:
-    - builder
-    - builder.components
-  scripts:
-    form.builder: 'http://kelp404.github.io/angular-form-builder/dist/angular-form-builder.js'
-    form.builder.components: 'http://kelp404.github.io/angular-form-builder/dist/angular-form-builder-components.js'
-    validator: 'http://kelp404.github.io/angular-form-builder/submodules/angular-validator/dist/angular-validator.js'
-    validator-rules: 'http://kelp404.github.io/angular-form-builder/submodules/angular-validator/dist/angular-validator-rules.js'
 builder-list:
   name: builder-list
   template: /_Resources/Static/Packages/PerfectIn.Ui/Presentation/Builder/Templates/List.html
@@ -63,7 +29,7 @@ builder-admin:
   modules:
     - perfectIn.ui.presentation.builder
   scripts:
-    - /_Resources/Static/Packages/PerfectIn.Ui/Presentation/Builder/module.js
+    module: /_Resources/Static/Packages/PerfectIn.Ui/Presentation/Builder/module.js
 builder-create:
   name: builder-create
   template: /_Resources/Static/Packages/PerfectIn.Ui/Presentation/Builder/Templates/Create.html
@@ -71,3 +37,35 @@ builder-create:
     - perfectIn.ui.presentation.builder
   scripts:
     - /_Resources/Static/Packages/PerfectIn.Ui/Presentation/Builder/module.js
+demo-test:
+  name: test
+  identifier: demo-test
+  module: demo
+  template: 'http://perfectin.dev.perfectin.nl/_Resources/Static/Packages/PerfectIn.Ui/Presentation/Demo/Templates/Test.html'
+  modules:
+    - perfectIn.ui.presentation.demo
+  scripts:
+    - 'http://perfectin.dev.perfectin.nl/_Resources/Static/Packages/PerfectIn.Ui/Presentation/Demo/module.js'
+  configuration:
+    -
+      id: 0
+      component: textInput
+      editable: true
+      index: 0
+      label: Demo
+      description: ''
+      placeholder: ''
+      options: {  }
+      required: true
+      validation: '/.*/'
+    -
+      id: 1
+      component: textArea
+      editable: true
+      index: 1
+      label: Opmerking
+      description: ''
+      placeholder: ''
+      options: {  }
+      required: true
+      validation: '/.*/'

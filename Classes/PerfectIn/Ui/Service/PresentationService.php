@@ -51,12 +51,12 @@ class PresentationService extends \TYPO3\Flow\Cli\CommandController {
 	/**
 	 * get yamlconfiguration
 	 * 
-	 * @param string $name
+	 * @param string $identifier
 	 * @return array
 	 */
-	public function getYamlConfiguration($name) {
+	public function getYamlConfiguration($identifier) {
 		$presentations 		= $this->getYamlConfigurations();
-		return $presentations[$name];
+		return $presentations[$identifier];
 	}
 	
 	/**
@@ -70,7 +70,8 @@ class PresentationService extends \TYPO3\Flow\Cli\CommandController {
 		$package 			= $this->packageManager->getPackage('PerfectIn.Ui');
 		$identifier			= $module . '-' . $name;
 		$moduleIdentifier	= 'perfectIn.ui.presentation.'.$module;
-		$staticResourcesUri = '/'. $this->resourcePublishingTarget->getStaticResourcesWebBaseUri() . 'Packages/PerfectIn.Ui/Presentation/'.ucfirst($module).'/';
+		$controllerName		= ucfirst($module) . '.'.ucfirst($name) . 'Controller';
+		$staticResourcesUri = $this->resourcePublishingTarget->getStaticResourcesWebBaseUri() . 'Packages/PerfectIn.Ui/Presentation/'.ucfirst($module).'/';
 		
 		/** create module **/
 		$moduleDir = $package->getResourcesPath() . 'Public/Presentation/'.ucfirst($module).'/';
@@ -78,16 +79,20 @@ class PresentationService extends \TYPO3\Flow\Cli\CommandController {
 		if (!file_exists($moduleDir . 'module.js')) {
 			file_put_contents($moduleDir . 'module.js', 'angular.module(\'' . $moduleIdentifier . '\', []);');
 		}
+		$controllerScript = PHP_EOL.'angular.module(\'' . $moduleIdentifier . '\').controller(\''.$controllerName. '\', function($scope) {'.PHP_EOL."\t".'$scope.data = {};'.PHP_EOL.'});';
+		file_put_contents($moduleDir . 'module.js', $controllerScript, FILE_APPEND);
 		
 		/** create default template **/
 		$templateDir = $moduleDir .'Templates/';
 		\TYPO3\Flow\Utility\Files::createDirectoryRecursively($templateDir);
-		file_put_contents($templateDir . ucfirst($name).'.html', '');
+		file_put_contents($templateDir . ucfirst($name).'.html', '<div ng-controller="'.$controllerName.'">'.PHP_EOL."\t".'<div fb-form="presentation" ng-model="data">'.PHP_EOL.'</div>');
 		
 		/** create yaml **/
 		$presentations 		= $this->getYamlConfigurations();
 		$presentations[$identifier] = array(
-			'name' => $identifier,
+			'name' => $name,
+			'identifier' => $identifier,
+			'module' => $module,
 			'template' => $staticResourcesUri. 'Templates/'.ucfirst($name).'.html',
 			'modules' => array($moduleIdentifier),
 			'scripts' => array(
@@ -95,6 +100,21 @@ class PresentationService extends \TYPO3\Flow\Cli\CommandController {
 			)
 		);	
 		$this->yamlSource->save($package->getConfigurationPath() . 'Presentations', $presentations);		
+	}
+	
+	
+	/**
+	 * create yaml
+	 *
+	 * @param string $identifier
+	 * @param array $configuration
+	 * @return void
+	 */
+	public function updatePresentation($identifier, $configuration) {
+		$package 			= $this->packageManager->getPackage('PerfectIn.Ui');
+		$presentations 		= $this->getYamlConfigurations();
+		$presentations[$identifier]['configuration'] = $configuration;
+		$this->yamlSource->save($package->getConfigurationPath() . 'Presentations', $presentations);
 	}
 	
 	/**
